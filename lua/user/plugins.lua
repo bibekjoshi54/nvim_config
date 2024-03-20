@@ -1,4 +1,5 @@
 lvim.plugins = {
+  { "christoomey/vim-tmux-navigator" },
   { "tpope/vim-surround" },
   { "tpope/vim-repeat" },
   -- Color Scheme
@@ -115,3 +116,47 @@ print("Finished loading the custom plugin")
 lvim.builtin.telescope.on_config_done = function(telescope)
   pcall(telescope.load_extension, "frecency")
 end
+
+
+local harpoon = require('harpoon')
+harpoon:setup({})
+local conf = require("telescope.config").values
+local M = {}
+
+M.harpoon_toggle = function()
+  local harpoon_files = harpoon:list()
+  local make_finder = function()
+    local paths = {}
+    for _, item in ipairs(harpoon_files.items) do
+      table.insert(paths, item.value)
+    end
+
+    return require("telescope.finders").new_table({
+      results = paths,
+    })
+  end
+
+  require("telescope.pickers")
+      .new({}, {
+        prompt_title = "Harpoon",
+        finder = make_finder(),
+        previewer = conf.file_previewer({}),
+        sorter = conf.generic_sorter({}),
+        attach_mappings = function(prompt_buffer_number, map)
+          map("i", "<C-d>", function()
+            local state = require("telescope.actions.state")
+            local selected_entry = state.get_selected_entry()
+            local current_picker = state.get_current_picker(prompt_buffer_number)
+
+            harpoon:list():removeAt(selected_entry.index)
+            current_picker:refresh(make_finder())
+            -- current_picker:set_selection(selected_entry.index)
+          end)
+
+          return true
+        end,
+      })
+      :find()
+end
+
+return M

@@ -1,8 +1,30 @@
 local kind = require('user.kind').icon_mapping
+local plugin = require('user.plugins')
 
 local wk = lvim.builtin.which_key
 
-wk.mappings["a"] = { ":Alpha<cr>", kind.icons.screen .. " Dashboard" }
+vim.keymap.set("n", "<C-e>", function() plugin.harpoon_toggle() end,
+  { desc = "Open harpoon window" })
+
+
+wk.mappings["a"] = { ":lua require('harpoon'):list():append()<cr>", "Harpoon Add" }
+wk.mappings["m"] = {
+  name = ' ' .. kind.todo_comments.PERF .. " Harpoon",
+  m = wk.mappings["a"],
+  a = { ":lua require('harpoon'):list():select(1)<cr>", "Goto mark 1" },
+  s = { ":lua require('harpoon'):list():select(2)<cr>", "Goto mark 2" },
+  d = { ":lua require('harpoon'):list():select(3)<cr>", "Goto mark 3" },
+  f = { ":lua require('harpoon'):list():select(4)<cr>", "Goto mark 4" },
+  g = { ":lua require('harpoon'):list():select(5)<cr>", "Goto mark 5" },
+  q = { ":lua require('harpoon'):list():select(6)<cr>", "Goto mark 6" },
+  w = { ":lua require('harpoon'):list():select(7)<cr>", "Goto mark 7" },
+  e = { ":lua require('harpoon'):list():select(8)<cr>", "Goto mark 8" },
+  r = { ":lua require('harpoon'):list():select(9)<cr>", "Goto mark 9" },
+  n = { ":lua require('harpoon'):list():next()<cr>", "Next file" },
+  p = { ":lua require('harpoon'):list():prev()<cr>", "Prev file" },
+}
+
+
 
 wk.mappings["S"] = {
   name = " persistence.nvim",
@@ -44,22 +66,6 @@ wk.mappings["d"] = {
 }
 
 
-wk.mappings["m"] = {
-  name = ' ' .. kind.todo_comments.PERF .. " Harpoon",
-  m = { ":lua require('harpoon.mark').add_file()<cr>", "Mark file" },
-  t = { ":lua require('harpoon.ui').toggle_quick_menu()<cr>", "Toggle UI" },
-  a = { ":lua require('harpoon.ui').nav_file(1)<cr>", "Goto mark 1" },
-  s = { ":lua require('harpoon.ui').nav_file(2)<cr>", "Goto mark 2" },
-  d = { ":lua require('harpoon.ui').nav_file(3)<cr>", "Goto mark 3" },
-  f = { ":lua require('harpoon.ui').nav_file(4)<cr>", "Goto mark 4" },
-  g = { ":lua require('harpoon.ui').nav_file(5)<cr>", "Goto mark 5" },
-  q = { ":lua require('harpoon.ui').nav_file(6)<cr>", "Goto mark 6" },
-  w = { ":lua require('harpoon.ui').nav_file(7)<cr>", "Goto mark 7" },
-  e = { ":lua require('harpoon.ui').nav_file(8)<cr>", "Goto mark 8" },
-  r = { ":lua require('harpoon.ui').nav_file(9)<cr>", "Goto mark 9" },
-  n = { ":lua require('harpoon.ui').nav_next()<cr>", "Next file" },
-  p = { ":lua require('harpoon.ui').nav_prev()<cr>", "Prev file" },
-}
 
 wk.mappings["W"] = {
   name = ' ' .. kind.icons.screen .. " Window Ctrl",
