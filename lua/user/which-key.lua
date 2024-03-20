@@ -74,7 +74,8 @@ wk.mappings["G"] = {
   t = { ":lua require('copilot.suggestion').toggle_auto_trigger()<cr>", "Toggle Auto Trigger" },
 }
 
-wk.mappings['x'] = { ":xa<cr>", "Save All and Quit", }
+wk.mappings['X'] = { ":xa<cr>", "Save All and Quit", }
+wk.mappings['x'] = { ":w<bar>:bp<bar>sp<bar>bn<bar>bd<cr>", "Close Buffer", }
 
 wk.mappings["t"] = {
   name = ' Telescope',

@@ -22,7 +22,8 @@ lvim.builtin.treesitter.ensure_installed = {
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = true
-lvim.builtin.nvimtree.setup.filters.custom = {}
+lvim.builtin.nvimtree.setup.filters.custom = { '.git', '.mypy', '.virtualenv', '.poetry_cache', '__pycache__',
+  '.pytest_cache', '.idea', '.vscode', '.ruff_cache' }
 
 lvim.builtin.treesitter.ignore_install = {}
 lvim.builtin.treesitter.highlight.enabled = true

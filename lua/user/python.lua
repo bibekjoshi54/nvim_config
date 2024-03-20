@@ -87,7 +87,7 @@ formatters.setup {
   { name = "ruff" }
 }
 
-setup_linter()
+-- setup_linter()
 
 vim.api.nvim_create_user_command("NullLsToggle", function()
   -- you can also create commands to disable or enable sources
