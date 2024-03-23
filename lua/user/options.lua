@@ -9,6 +9,9 @@ if vim.g.neovide then
   vim.g.neovide_input_macos_alt_is_meta = false
 end
 
+
+vim.g.python3_host_prog = "~/.miniconda3/bin/python"
+
 lvim.log.level = "warn"
 lvim.format_on_save.enabled = true
 

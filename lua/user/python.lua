@@ -1,9 +1,18 @@
 print("Configuring the python specific changes")
 
+
 local function setup_linter()
+  -- Skipping this as mypy is giving me lot of issues in the virtual env
   local linters = require "lvim.lsp.null-ls.linters"
   linters.setup {
     { name = "mypy" }
+  }
+end
+
+local function setup_diagnostic()
+  local diagnostic = require "lvim.lsp.null-ls.linters"
+  diagnostic.setup {
+    { name = "flake8", filetypes = { "python" } },
   }
 end
 
@@ -38,7 +47,7 @@ require('swenv').setup(
   {
     post_set_venv = function()
       vim.cmd("LspRestart")
-      reload_python_linter()
+      -- reload_python_linter()
       setup_dap()
     end,
 
@@ -69,7 +78,7 @@ local pyright_opts = {
         autoImportCompletions = true,
         autoSearchPaths = true,
         diagnosticMode = "workspace", -- openFilesOnly, workspace
-        typeCheckingMode = "off",     -- off, basic, strict
+        typeCheckingMode = "strict",  -- off, basic, strict
         useLibraryCodeForTypes = true
       }
     }
@@ -84,10 +93,8 @@ local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
   { name = "black" },
   { name = "isort" },
-  { name = "ruff" }
 }
 
--- setup_linter()
 
 vim.api.nvim_create_user_command("NullLsToggle", function()
   -- you can also create commands to disable or enable sources
