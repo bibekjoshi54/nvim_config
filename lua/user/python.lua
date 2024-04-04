@@ -36,7 +36,7 @@ local function setup_dap()
           justMyCode = false,
           console = "integratedTerminal",
         },
-        args = { "--log-level", "DEBUG", "--quiet" },
+        args = { "--log-level", "DEBUG", "-s" },
         runner = "pytest",
       })
     }
@@ -77,8 +77,8 @@ local pyright_opts = {
       analysis = {
         autoImportCompletions = true,
         autoSearchPaths = true,
-        diagnosticMode = "workspace", -- openFilesOnly, workspace
-        typeCheckingMode = "strict",  -- off, basic, strict
+        diagnosticMode = "openFilesOnly", -- openFilesOnly, workspace
+        typeCheckingMode = "strict",      -- off, basic, strict
         useLibraryCodeForTypes = true
       }
     }
@@ -91,8 +91,8 @@ require("lvim.lsp.manager").setup("pyright", pyright_opts)
 
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
-  { name = "black" },
   { name = "isort" },
+  { name = "black" },
 }
 
 
